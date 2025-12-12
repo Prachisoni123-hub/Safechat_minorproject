@@ -2,22 +2,22 @@
 SafeChat is a privacy-focused web application designed to allow students to report sensitive issues completely anonymously.
 Many students hesitate to raise concerns due to fear of judgment or identity exposure. SafeChat solves this by offering a secure, identity-free complaint submission platform that promotes a safer and more transparent college environment.
 
-🚀 Features
-🎯 Student Side
+* Features
+ 1.Student Side
 
-🕵️ 100% Anonymous Complaint Submission
+i) 100% Anonymous Complaint Submission
 
-🔐 No login, no personal data, no identity tracking
+ii) No login, no personal data, no identity tracking
 
-📝 Simple and clean interface for quick submission
+iii) Simple and clean interface for quick submission
 
-🎯 Admin Side
+iv) Admin Side
 
-📊 Admin Dashboard to view all complaints
+v) Admin Dashboard to view all complaints
 
-✔️ Mark complaints as resolved
+vi) Mark complaints as resolved
 
-🔎 Organised display to help authorities take quick action
+vii) Organised display to help authorities take quick action
 
 🏗️ Tech Stack
 
