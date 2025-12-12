@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SafeChat | Submit Complaint</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f4f4f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      background: #b81091;
+      padding: 10px 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+    }
+    .header img { height: 60px; }
+
+    .container {
+      max-width: 700px;
+      margin: 40px auto;
+      background: white;
+      padding: 35px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: #333;
+      font-size: 28px;
+      margin-bottom: 25px;
+    }
+
+    label {
+      font-weight: 600;
+      color: #444;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 15px;
+      background: #fafafa;
+    }
+
+    textarea { height: 130px; resize: none; }
+
+    .btn {
+      background: #5308df;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 150px;
+    }
+
+    footer {
+      text-align: center;
+      color: #666;
+      margin-top: 30px;
+      padding-bottom: 20px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <img src="https://lnct.ac.in/wp-content/uploads/2021/04/LNCT-Logo.png">
+  </div>
+
+  <div class="container">
+    <h1>Submit Complaint</h1>
+
+    <!-- ✅ Added form + IDs -->
+    <form id="complaintForm">
+
+      <label>Category:</label>
+      <select id="category" required>
+        <option value="">Select Category</option>
+        <option>Faculty</option>
+        <option>Hostel</option>
+        <option>Mess</option>
+        <option>Campus Facilities</option>
+        <option>Other</option>
+      </select>
+
+      <label>Your Complaint:</label>
+      <textarea id="complaintText" placeholder="Enter your complaint..." required></textarea>
+
+      <button class="btn" type="submit">Submit</button>
+    </form>
+  </div>
+
+  <footer>
+    © 2025 SafeChat | LNCT Bhopal
+  </footer>
+
+  <!-- ✅ This connects the page to your Firebase submit code -->
+  <script type="module" src="submit.js"></script>
+
+</body>
+</html>

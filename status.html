@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Complaint Status | SafeChat</title>
+
+  <style>
+    body {
+      background: #f4f4f4;
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+    }
+
+    /* ✅ Navbar */
+    .navbar {
+      background: #8B0A1A;
+      padding: 18px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    .logo {
+      height: 55px;
+    }
+
+    .navbar nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    /* ✅ Page Title */
+    h1 {
+      text-align: center;
+      margin-top: 35px;
+      color: #8B0A1A;
+      font-size: 34px;
+    }
+
+    /* ✅ Status Box */
+    .status-box {
+      width: 90%;
+      max-width: 900px;
+      background: white;
+      margin: 30px auto;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: #8B0A1A;
+      color: white;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      background: #700815;
+    }
+
+    /* ✅ Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 25px;
+    }
+
+    th {
+      background: #8B0A1A;
+      color: white;
+      padding: 12px;
+      font-size: 16px;
+    }
+
+    td {
+      padding: 14px;
+      border-bottom: 1px solid #ddd;
+      font-size: 15px;
+      background: #fafafa;
+    }
+
+    /* ✅ Status Pill Colors */
+    .pill {
+      padding: 6px 12px;
+      border-radius: 30px;
+      color: white;
+      font-weight: 600;
+    }
+
+    .pending { background: #d98324; }
+    .progress { background: #0057d8; }
+    .resolved { background: #2d8a34; }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+      font-weight: 600;
+      text-align: center;
+    }
+  </style>
+
+</head>
+<body>
+
+  <!-- ✅ Navbar -->
+  <header class="navbar">
+    <img src="https://lnct.ac.in/wp-content/uploads/2021/04/LNCT-Logo.png" class="logo" />
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="admin.html">Admin Login</a>
+    </nav>
+  </header>
+
+  <!-- ✅ Complaint Status Section -->
+  <h1>Check Complaint Status</h1>
+
+  <div class="status-box">
+
+    <input type="text" id="complaintID" class="input-field" placeholder="Enter Your Anonymous Complaint ID">
+
+    <button class="btn" id="checkStatus">Check Status</button>
+
+    <p id="errorMsg" class="error"></p>
+
+    <div id="statusResult"></div>
+
+  </div>
+
+  <script type="module">
+    // ✅ Firebase Setup
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "YOUR_KEY",
+      authDomain: "YOUR_DOMAIN",
+      databaseURL: "YOUR_DB_URL",
+      projectId: "YOUR_ID",
+      storageBucket: "YOUR_BUCKET",
+      messagingSenderId: "YOUR_MSG_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // ✅ Check Status Function
+    document.getElementById("checkStatus").addEventListener("click", async () => {
+      let id = document.getElementById("complaintID").value.trim();
+      let error = document.getElementById("errorMsg");
+      let resultDiv = document.getElementById("statusResult");
+
+      error.textContent = "";
+      resultDiv.innerHTML = "";
+
+      if (id === "") {
+        error.textContent = "⚠️ Please enter your Anonymous Complaint ID.";
+        return;
+      }
+
+      const complaintRef = ref(db, "complaints/" + id);
+
+      const snapshot = await get(complaintRef);
+
+      if (!snapshot.exists()) {
+        error.textContent = "❌ Complaint ID not found.";
+        return;
+      }
+
+      let data = snapshot.val();
+
+      // ✅ Display table
+      resultDiv.innerHTML = `
+      <table>
+        <tr><th>Anonymous ID</th><td>${data.anonID}</td></tr>
+        <tr><th>Category</th><td>${data.category}</td></tr>
+        <tr><th>Message</th><td>${data.message}</td></tr>
+        <tr><th>Date</th><td>${data.date}</td></tr>
+        <tr><th>Status</th>
+          <td><span class="pill ${data.status}">${data.status}</span></td>
+        </tr>
+      </table>`;
+    });
+  </script>
+
+</body>
+</html>

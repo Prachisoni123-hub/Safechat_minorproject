@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SafeChat | LNCT Bhopal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <img src="https://lnct.ac.in/wp-content/uploads/2021/04/LNCT-Logo.png" alt="LNCT Logo" class="logo">
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About LNCT</a>
+      <a href="#safechat">SafeChat</a>
+      <a href="#contact">Contact</a>
+       <a href="userstatus.html">check your complaint status</a>
+
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <h1>Welcome to <span>SafeChat</span></h1>
+    <p>An <strong>Anonymous Complaint & Feedback Portal</strong> by LNCT Bhopal — empowering voices and ensuring safety.</p>
+    <div class="btn-group">
+      <a href="complaint.html" class="btn3d">Submit Complaint</a>
+      <a href="admin.html" class="btn3d secondary">Admin Login</a>
+    </div>
+  </div>
+</section>
+
+  <!-- About LNCT Section -->
+  <section class="about" id="about">
+    <h2>About LNCT Group</h2>
+    <p>LNCT Group of Colleges is one of the most prestigious and oldest educational groups in Central India, nurturing excellence since 1994. 
+       With a mission to provide quality education and a student-centric environment, LNCT has empowered thousands of engineers, doctors, and entrepreneurs across India and abroad.</p>
+    <div class="lnct-highlight">
+      <div>
+        <h3>🏆 Excellence</h3>
+        <p>Top-ranked in placements and innovation.</p>
+      </div>
+      <div>
+        <h3>🌐 Global Reach</h3>
+        <p>Strong alumni network across the globe.</p>
+      </div>
+      <div>
+        <h3>💡 Innovation</h3>
+        <p>Encouraging students through research & hackathons.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SafeChat Info -->
+  <section class="safechat" id="safechat">
+    <h2>Why SafeChat?</h2>
+    <ul>
+      <li>Anonymous complaint submissions for students and staff</li>
+      <li>Secure database management for admins</li>
+      <li>Smart tracking & status updates</li>
+      <li>Ensures transparency and accountability</li>
+    </ul>
+  </section>
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <p>© 2025 SafeChat | LNCT Bhopal — Developed by Techsphere</p>
+  </footer>
+
+  <!-- Theme Toggle + Notification -->
+  <button id="themeToggle" class="theme-btn">🌗</button>
+  <div id="notification" class="notification-bar" style="display:none;">Welcome!</div>
+
+  <script>
+    const toggle = document.getElementById('themeToggle');
+    toggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      showNotification(document.body.classList.contains('dark-mode') ? 'Dark Mode On' : 'Light Mode On');
+    });
+
+    function showNotification(msg) {
+      const note = document.getElementById('notification');
+      note.textContent = msg;
+      note.style.display = 'block';
+      setTimeout(() => note.style.display = 'none', 2500);
+    }
+
+    window.onload = () => {
+      showNotification("Welcome to LNCT SafeChat Portal 💬");
+    };
+  </script>
+
+</body>
+</html>

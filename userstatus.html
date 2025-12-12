@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeChat | Complaint Status</title>
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #f4f6fb;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Top Navigation */
+  .navbar {
+    display: flex;
+    align-items: center;
+    background: #1a237e; /* LNCT Blue */
+    color: white;
+    padding: 12px 20px;
+  }
+
+  .navbar h2 {
+    margin: 0;
+    font-size: 20px;
+    flex-grow: 1;
+  }
+
+  .home-btn {
+    color: rgb(9, 9, 9);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  /* Status Card */
+  .card {
+    background: white;
+    width: 450px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    text-align: center;
+  }
+
+  p { font-size: 16px; color: #444; margin: 10px 0; }
+  .status { font-weight: bold; font-size: 18px; margin-top: 15px; }
+
+  .pending { color: #f44336; }
+  .working { color: #ff9800; }
+  .resolved { color: #4caf50; }
+</style>
+</head>
+<body>
+
+<!-- ✅ Top Nav -->
+<div class="navbar">
+  <h2>Complaint Status</h2>
+  <a href="index.html" class="home-btn">Home</a>
+</div>
+
+<div class="card">
+  <p><strong>Category:</strong> <span id="category">Loading...</span></p>
+  <p><strong>Complaint:</strong></p>
+  <p id="text">Loading...</p>
+  <p><strong>Date:</strong> <span id="timestamp">Loading...</span></p>
+  <p class="status">Status: <span id="status">Loading...</span></p>
+</div>
+
+<script type="module">
+  import { db, ref, onValue } from "./firebase-config.js";
+
+  const complaintId = localStorage.getItem("complaintId");
+  if (!complaintId) {
+    alert("No complaint found! Please submit a complaint first.");
+    window.location.href = "index.html";
+  }
+
+  const textEl = document.getElementById("text");
+  const categoryEl = document.getElementById("category");
+  const statusEl = document.getElementById("status");
+  const timestampEl = document.getElementById("timestamp");
+
+  const complaintRef = ref(db, "complaints/" + complaintId);
+
+  // Listen for live updates of this complaint
+  onValue(complaintRef, (snapshot) => {
+    if (!snapshot.exists()) {
+      alert("Complaint not found!");
+      return;
+    }
+
+    const data = snapshot.val();
+
+    textEl.textContent = data.text;
+    categoryEl.textContent = data.category;
+    timestampEl.textContent = data.timestamp;
+    statusEl.textContent = data.status;
+
+    // Add color based on status
+    statusEl.className = '';
+    if (data.status === "Pending") statusEl.classList.add('pending');
+    else if (data.status === "Working") statusEl.classList.add('working');
+    else if (data.status === "Resolved") statusEl.classList.add('resolved');
+  });
+</script>
+
+</body>
+</html>

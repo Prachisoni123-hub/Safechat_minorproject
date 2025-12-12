@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Portal | SafeChat</title>
+
+  <style>
+    body {
+      font-family: Poppins, sans-serif;
+      background: #f4f4f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      align-items: center;
+      padding: 15px 5%;
+      background: #b81091;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      justify-content: space-between;
+    }
+    .navbar img {
+      height: 60px;
+    }
+    .navbar a {
+      color: #333;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: 600;
+    }
+
+    /* LOGIN BOX */
+    .hero {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 85vh;
+    }
+    .hero-content {
+      background: white;
+      padding: 40px;
+      width: 350px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .hero-content h1 {
+      margin-bottom: 10px;
+      color: #111;
+    }
+    .hero-content span {
+      color: #0b0304c9;
+    }
+
+    .input-box {
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      background: #fafafa;
+    }
+
+    .btn3d {
+      width: 100%;
+      background: #5308df; 
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .btn3d:hover {
+      opacity: 0.9;
+    }
+
+    .register-link {
+      margin-top: 10px;
+      display: inline-block;
+      color: #333;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .register-link:hover {
+      text-decoration: underline;
+    }
+
+    #loginError {
+      margin-top: 8px;
+      color: red;
+      font-size: 14px;
+    }
+  </style>
+
+</head>
+<body>
+
+  <header class="navbar">
+    <img src="https://lnct.ac.in/wp-content/uploads/2021/04/LNCT-Logo.png" class="logo">
+    <nav>
+      <a href="index.html">Home</a>
+    </nav>
+  </header>
+
+  <!-- ✅ ADMIN LOGIN -->
+  <section id="loginSection" class="hero">
+    <div class="hero-content">
+      <h1>Admin <span>Login</span></h1>
+
+      <input type="email" id="adminEmail" placeholder="Admin Email" class="input-box" />
+      <input type="password" id="adminPassword" placeholder="Password" class="input-box" />
+
+      <button id="loginBtn" class="btn3d">Login</button>
+
+      <p id="loginError"></p>
+
+      <p class="register-link" onclick="openRegistration()">
+        New Admin? Register Here
+      </p>
+    </div>
+  </section>
+
+  <script>
+    // ✅ ANY EMAIL + PASSWORD WILL LOGIN (no validation)
+    document.getElementById("loginBtn").addEventListener("click", () => {
+      let email = document.getElementById("adminEmail").value;
+      let pass = document.getElementById("adminPassword").value;
+
+      if (email === "" || pass === "") {
+        document.getElementById("loginError").innerText = "Please enter email & password!";
+        return;
+      }
+
+      // ✅ Allow Login Directly
+      window.location.href = "admindashboard.html";
+    });
+
+    // ✅ NEW ADMIN → SEND TO REGISTRATION PAGE
+    function openRegistration() {
+      window.location.href = "registrationform.html";
+    }
+  
+  </script>
+
+</body>
+</html>
